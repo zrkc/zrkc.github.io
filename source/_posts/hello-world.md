@@ -36,3 +36,31 @@ $ hexo deploy
 ```
 
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
+
+## Additional Information
+
+This blog is deployed in this [Github repo](https://github.com/zrkc/zrkc.github.io/tree/main), with source code stored in the branch [hexo](https://github.com/zrkc/zrkc.github.io/tree/hexo).
+
+To maintain the blog in a new device, clone the branch [hexo](https://github.com/zrkc/zrkc.github.io/tree/hexo) and run hexo:
+
+```
+git clone -b hexo https://github.com/zrkc/zrkc.github.io.git
+cd .\zrkc.github.io\
+npm install -g hexo-cli
+npm install
+npm install hexo-deployer-git
+```
+
+To syn from local to remote:
+
+```
+git add .
+git commit -m "some comments"
+git push origin hexo
+```
+
+To syn from remote to local:
+
+```
+git pull
+```
