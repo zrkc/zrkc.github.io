@@ -1,7 +1,8 @@
 ---
 title: Online Convex Optimization Warmup
 date: 2025-09-06 11:01:07
-tags:
+tags: [OCO, Tutorial]
+excerpt: A Warmup for [AOpt Course](https://www.pengzhao-ml.com/course/AOpt2025fall/)
 ---
 
 > 本文是为高级优化课程的学生在正式学习在线凸优化之前准备的。具体来说，本文介绍了在线凸优化的一个典型 setting，给出经典算法，并推导了上下界。  
