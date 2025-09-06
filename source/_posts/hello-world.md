@@ -66,3 +66,5 @@ To syn from remote to local:
 ```
 git pull
 ```
+
+[reference](https://cloud.tencent.com/developer/article/1046404)
