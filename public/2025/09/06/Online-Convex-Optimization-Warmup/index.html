@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>Online Convex Optimization Warmup | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="本文是为高级优化课程的学生在正式学习在线凸优化之前准备的。具体来说，本文介绍了在线凸优化的一个典型 setting，给出经典算法，并推导了上下界。本文的目的是希望读者能在正式学习在线凸优化之前，先对“在线学习”有个大致的认识，以免陷于数学证明之中失去了最宝贵的兴趣。为照顾逻辑表达，本文行文叙述和理论推导可能不会十分严谨，希望读者注意，也欢迎给出意见！  1. Problem Formulatio">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Online Convex Optimization Warmup">
+<meta property="og:url" content="http://example.com/2025/09/06/Online-Convex-Optimization-Warmup/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文是为高级优化课程的学生在正式学习在线凸优化之前准备的。具体来说，本文介绍了在线凸优化的一个典型 setting，给出经典算法，并推导了上下界。本文的目的是希望读者能在正式学习在线凸优化之前，先对“在线学习”有个大致的认识，以免陷于数学证明之中失去了最宝贵的兴趣。为照顾逻辑表达，本文行文叙述和理论推导可能不会十分严谨，希望读者注意，也欢迎给出意见！  1. Problem Formulatio">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-09-06T03:01:07.000Z">
+<meta property="article:modified_time" content="2025-09-06T03:10:37.478Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -69,9 +73,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Online-Convex-Optimization-Warmup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Online-Convex-Optimization-Warmup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/09/06/Online-Convex-Optimization-Warmup/" class="article-date">
   <time class="dt-published" datetime="2025-09-06T03:01:07.000Z" itemprop="datePublished">2025-09-06</time>
@@ -84,8 +86,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/06/Online-Convex-Optimization-Warmup/">Online Convex Optimization Warmup</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      Online Convex Optimization Warmup
     </h1>
   
 
@@ -182,70 +184,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/09/06/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-09-06T02:58:08.785Z" itemprop="datePublished">2025-09-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/09/06/hello-world/">Hello World</a>
-    </h1>
+    <a href="/2025/09/06/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h2 id="Additional-Information"><a href="#Additional-Information" class="headerlink" title="Additional Information"></a>Additional Information</h2><p>This blog is deployed in this <a target="_blank" rel="noopener" href="https://github.com/zrkc/zrkc.github.io/tree/main">Github repo</a>, with source code stored in the branch <a target="_blank" rel="noopener" href="https://github.com/zrkc/zrkc.github.io/tree/hexo">hexo</a>.</p>
-<p>To maintain the blog in a new device, clone the branch <a target="_blank" rel="noopener" href="https://github.com/zrkc/zrkc.github.io/tree/hexo">hexo</a> and run hexo:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone -b hexo https://github.com/zrkc/zrkc.github.io.git</span><br><span class="line">cd .\zrkc.github.io\</span><br><span class="line">npm install -g hexo-cli</span><br><span class="line">npm install</span><br><span class="line">npm install hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-<p>To syn from local to remote (hexo branch, not main!):</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m &quot;some comments&quot;</span><br><span class="line">git push origin hexo</span><br></pre></td></tr></table></figure>
-
-<p>To syn from remote to local:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2025/09/06/hello-world/" data-id="cmf7p8gm10001hkvy2kyh5cki" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>

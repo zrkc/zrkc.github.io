@@ -51,6 +51,8 @@ npm install
 npm install hexo-deployer-git
 ```
 
+(And delete `.deploy_git` if downloaded from remote, this is only used local. I have added it to `.gitignore`)
+
 To syn from local to remote (hexo branch, not main!):
 
 ```
