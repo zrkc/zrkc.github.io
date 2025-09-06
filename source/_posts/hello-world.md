@@ -51,7 +51,7 @@ npm install
 npm install hexo-deployer-git
 ```
 
-To syn from local to remote:
+To syn from local to remote (hexo branch, not main!):
 
 ```
 git add .
