@@ -27,7 +27,7 @@
 <meta property="og:description" content="Learn to make a trade-off between the past and the present.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-09-06T03:01:07.000Z">
-<meta property="article:modified_time" content="2025-09-08T04:34:09.228Z">
+<meta property="article:modified_time" content="2025-09-08T04:44:46.809Z">
 <meta property="article:author" content="Yuheng Zhao">
 <meta property="article:tag" content="OCO">
 <meta property="article:tag" content="Tutorial">
@@ -224,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.5k words
+          7.6k words
         
       </span>
     
@@ -235,7 +235,7 @@
         
         
         
-          63 mins
+          64 mins
         
       </span>
     
@@ -284,7 +284,7 @@
 <h3 id="0-1-Offline-Optimization"><a href="#0-1-Offline-Optimization" class="headerlink" title="0.1 (Offline) Optimization"></a>0.1 (Offline) Optimization</h3><p>大多数人接触优化是从随机梯度下降（Stochastic Gradient Descent, SGD）开始的，再后来就是调包创建优化器：</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs py">optimizer = torch.optim.SGD(model.parameters(), lr=<span class="hljs-number">1e-3</span>)<br></code></pre></td></tr></table></figure>
 <p>并训练（优化）：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">for</span> <span class="hljs-built_in">input</span>, target <span class="hljs-keyword">in</span> dataset:<br>    optimizer.zero _grad()<br>    output = model(<span class="hljs-built_in">input</span>)<br>    loss = loss _fn(output, target)<br>    loss.backward()<br>    optimizer.step()<br></code></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs py"><span class="hljs-keyword">for</span> <span class="hljs-built_in">input</span>, target <span class="hljs-keyword">in</span> dataset:<br>    optimizer.zero_grad()<br>    output = model(<span class="hljs-built_in">input</span>)<br>    loss = loss_fn(output, target)<br>    loss.backward()<br>    optimizer.step()<br></code></pre></td></tr></table></figure>
 <p>截止目前（2025年），最常用的优化器是 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6980">Adam</a> 以及其变体 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1711.05101">AdamW</a>。优化器还有很多，但是为什么现在大家几乎默认使用 Adam 呢？一个很有意思的<a target="_blank" rel="noopener" href="https://parameterfree.com/2020/12/06/neural-network-maybe-evolved-to-make-adam-the-best-optimizer/">观点</a>是：Adam 很适合优化若干年前的神经网络，因此神经网络近些年都在朝着能够继续使得 Adam 有效甚至越来越有效的方向进化。至于在此期间还有其他可能的新架构，往往因为诞生之初难以被<em>默认</em>的 Adam 优化而被忽视了。如果事实真就如此，我们能否从理论上说明这个现象，并指导下一个优化器（或者更可能说是，下一对“模型-优化器”）的设计呢？</p>
 <p>我们需要回到优化的数学形式化描述上。例如，对于“feature-target”对的数据集 $\{(\mathbf{z} _n,\mathbf{y} _n)\} _{n&#x3D;1}^N$，我们定义参数为 $\mathbf{w}$ 的模型为函数 $\mathcal{M}(\cdot;\mathbf{w}):\mathbf{z}\mapsto\mathcal{M}(\mathbf{z};\mathbf{w})$。定义单值的损失函数 $l(\cdot,\cdot)$ 用以衡量模型输出 $\mathcal{M}(\mathbf{z} _n;\mathbf{w})$ 和真实目标 $\mathbf{y} _n$ 之间的差距。我们设定 $\mathbf{w}$ 属于某个参数空间的集合 $\mathcal{W}\subseteq\mathbb{R}^d$，那么优化问题可以写成：</p>
 <p>$$<br>\begin{equation}<br>    \min _{\mathbf{w}\in\mathcal{W}}\quad  \frac{1}{N} \sum _{n&#x3D;1}^N l(\mathcal{M}(\mathbf{z} _n;\mathbf{w}),\mathbf{y} _n). \tag{1}<br>\end{equation}<br>$$</p>
@@ -301,8 +301,8 @@
 <h3 id="0-2-Offline-to-Online"><a href="#0-2-Offline-to-Online" class="headerlink" title="0.2 Offline to Online"></a>0.2 Offline to Online</h3><p>讲到这里，和我们要介绍的在线优化是什么关系呢？我们考虑模型的两个阶段：离线训练和在线部署。离线阶段，模型对着固定的数据集训练；而在线部署后，模型面对流式到来的数据，也可能有优化参数以适应新数据的需要——这方面的例子比如后训练（或者多次后训练）、on-policy 强化学习、持续学习等。为了对比和区分，我们将前者的优化过程（例如上文提到的随机优化）称为“离线优化”（Offline Optimization），而将后者称为“在线优化”（Online Optimization）。你可能会问，随机优化里一个个 batch 的数据，不也是流式的吗？——确实如此，这也是在线学习方法可以很自然地迁移到离线优化的一个原因——但离线和在线更重要的区别在于：<strong>数据分布是否会发生变化</strong>。</p>
 <p>对于离线优化而言，优化过程中 Oracle 的分布始终不变，就比如在随机优化中，每个 batch 都是<strong>独立同分布</strong>的。事实上，当数据集被扩充、或者进入在线部署阶段后，数据分布很可能会发生变化，始终独立同分布的条件就不成立了。此时，优化问题从“离线”的一成不变转为“在线”的持续变化，“在线优化”也就有了意义。</p>
 <p>等等，在上一小节我们不是说好了要研究优化器的理论吗？这饼给我画哪去了？事实上，正如上所述，在线优化的方法可以很自然地用于离线优化尤其是随机优化，原因也很简单：在线学习研究的是分布可以发生变化，它的一个特殊情况就是分布不变的随机优化。而从理论上，也有一个很简单直接的转化，称为<a target="_blank" rel="noopener" href="https://parameterfree.com/2019/09/17/more-online-to-batch-examples-and-strong-convexity/">“online-to-batch conversion”</a>，它的意思是通过为离线优化设计一种黑盒调用在线优化算法的框架，式 <a href="#optimality-gap">$(4)$</a> 中的 optimality gap 可以被平均意义下的在线优化指标——遗憾（Regret）——给 upper bound 住，从而我们的问题转变为了为 Regret 提供理论保障。</p>
-<p>值得注意的是，现在风生水起的 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6980">Adam (2014)</a> 优化器，在论文中就是从在线凸优化角度给出收敛性证明的（虽然后续被指出证明存在错误…存在反例使得 Adam 不收敛…）；更值得注意的是，Adam 算法的设计结合了 1) <a target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36483.pdf">AdaGrad (2010)</a> 的变体 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1308.0850v5.pdf">RMSProp (2014)</a> 和 2) 动量方法（早已有之，而最重要的工作是 Yurii Nesterov 在 1983 年提出的 <a target="_blank" rel="noopener" href="https://link.springer.com/book/10.1007/978-3-319-91578-4">Nesterov Accelerated Gradient</a>，大幅加速了梯度下降的收敛率）。AdaGrad 作为在线凸优化和随机优化算法，将在线凸优化中一个很重要的步长设计 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1002.4862">adaptive learning rate (2010)</a>（本文后面会介绍）直接迁移到 entry-wise，从而更好地利用梯度的稀疏性。总之，Adam(W) 上溯祖宗三代都有在线凸优化——虽然它如今已经成为了大模型时代的默认优化器（而且还是<strong>非凸</strong>的…）——是因为 Adam 恰好成为了大模型时代爆发前夜被选中的“<a target="_blank" rel="noopener" href="https://parameterfree.com/2020/12/06/neural-network-maybe-evolved-to-make-adam-the-best-optimizer/">幸运儿</a>”，还是说在线凸优化有着超出我们当前认知的潜力呢？</p>
-<p>在线优化所属的在线学习（Online Learning），最早由<a target="_blank" rel="noopener" href="https://www.researchgate.net/profile/Gabor-Lugosi/publication/220690817_Prediction_Learning_and_Games/links/0912f50eae7fc7be04000000/Prediction-Learning-and-Games.pdf">《Prediction, learning, and games》</a>一书从博弈论的角度所形式化，并给出了 Regret 概念作为理论指标。当然，作为研究分布变化情况下的优化问题，在线优化还具备更广泛的意义和应用场景。没有一成不变的环境，为了得到有适应能力的模型，在线优化也算是起了一个开头了。</p>
+<p>值得注意的是，现在风生水起的 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6980">Adam (2014)</a> 优化器，在论文中就是从在线凸优化角度给出收敛性证明的（虽然后续被指出证明存在错误…存在反例使得 Adam 不收敛…）；更值得注意的是，Adam 算法的设计结合了 1) <a target="_blank" rel="noopener" href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/36483.pdf">AdaGrad (2010)</a> 的变体 <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1308.0850v5.pdf">RMSProp (2014)</a> 和 2) 动量方法（早已有之，而最重要的工作是 Yurii Nesterov 在 1983 年提出的 <a target="_blank" rel="noopener" href="https://link.springer.com/book/10.1007/978-3-319-91578-4">Nesterov Accelerated Gradient</a>，大幅加速了梯度下降的收敛率）。AdaGrad 作为在线凸优化和随机优化算法，将在线凸优化中一个很重要的步长设计 <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1002.4862">adaptive learning rate (2010)</a>（本文后面会介绍）直接迁移到 entry-wise，从而更好地利用梯度的稀疏性。总之，Adam(W) 上溯祖宗三代都有在线凸优化——虽然它如今已经成为了大模型时代的默认优化器（而且还是<strong>非凸</strong>的…）——是因为 Adam 恰好成为了大模型时代爆发前夜被选中的“<a target="_blank" rel="noopener" href="https://parameterfree.com/2020/12/06/neural-network-maybe-evolved-to-make-adam-the-best-optimizer/">幸运儿</a>”（那是否可以从在线凸优化诞生出新的幸运儿呢？），亦或是说在线凸优化本就有着超出我们当前认知的潜力呢？</p>
+<p>在线优化所属的在线学习（Online Learning），最早由<a target="_blank" rel="noopener" href="https://www.researchgate.net/profile/Gabor-Lugosi/publication/220690817_Prediction_Learning_and_Games/links/0912f50eae7fc7be04000000/Prediction-Learning-and-Games.pdf">《Prediction, learning, and games》</a>一书从博弈论的角度所形式化，并给出了 Regret 概念作为理论指标。当然，作为研究分布变化情况下的优化问题，在线优化还具备更广泛的意义和应用场景。没有一成不变的环境，为了得到有持续适应能力的模型，在线优化也算是起了一个开头了。</p>
 <h2 id="1-Problem-Formulation"><a href="#1-Problem-Formulation" class="headerlink" title="1. Problem Formulation"></a>1. Problem Formulation</h2><p>在线优化属于在线学习（Online Learning）。在线学习简单来说就是设计与环境交互的算法，根据得到的反馈不断更新自身模型以适应。我们将这个过程抽象成学习者与环境的<strong>博弈</strong>（实际上“博弈”这个词有一定误导性，因为环境不一定总是对抗性的），即如下范式：</p>
 <div style="border: 1px solid rgba(127, 127, 127, 1); padding: 10px; border-radius: 5px;">
 
