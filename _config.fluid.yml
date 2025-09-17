@@ -554,7 +554,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/bg/space.jpg
+  banner_img: /img/bg/RadioTelescope.jpg
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -598,7 +598,7 @@ post:
     # 浏览量计数
     # Number of visits
     views:
-      enable: false
+      enable: true
       # 统计数据来源
       # Data Source
       # Options: busuanzi | leancloud | umami
